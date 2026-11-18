@@ -26,6 +26,10 @@ class StudentController extends Controller
             'roll' => ['required', 'string', 'max:50', 'unique:students,roll'],
             'department' => ['required', 'string', 'max:120'],
             'email' => ['required', 'email', 'max:255', 'unique:students,email'],
+            'phone' => ['nullable', 'string', 'max:30'],
+            'dob' => ['nullable', 'date', 'before:today'],
+            'gender' => ['nullable', 'in:Male,Female,Other'],
+            'password' => ['nullable', 'string', 'min:8'],
         ]);
 
         $student = Student::create($data);
@@ -50,8 +54,15 @@ class StudentController extends Controller
             'roll' => ['required', 'string', 'max:50', Rule::unique('students', 'roll')->ignore($student->id)],
             'department' => ['required', 'string', 'max:120'],
             'email' => ['required', 'email', 'max:255', Rule::unique('students', 'email')->ignore($student->id)],
+            'phone' => ['nullable', 'string', 'max:30'],
+            'dob' => ['nullable', 'date', 'before:today'],
+            'gender' => ['nullable', 'in:Male,Female,Other'],
+            'password' => ['nullable', 'string', 'min:8'],
         ]);
 
+        if (empty($data['password'] ?? null)) {
+            unset($data['password']);
+        }
         $student->update($data);
         return redirect()->route('students.show', $student)->with('success', 'Student updated successfully.');
     }

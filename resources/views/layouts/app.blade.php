@@ -18,11 +18,13 @@
         .badge{padding:5px 9px;border-radius:20px;background:#dbeafe;color:#1d4ed8;font-weight:bold}
         @media(max-width:650px){.grid{grid-template-columns:1fr}table{font-size:13px}th,td{padding:8px}.container{margin:18px auto}}
     </style>
+    @stack('styles')
 </head>
 <body>
 <nav>
-    <div><a class="brand" href="{{ route('students.index') }}">Student Result Portal</a></div>
+    <div><a class="brand" href="{{ route('registration.create') }}">Student Portal</a></div>
     <div>
+        <a href="{{ route('registration.create') }}">Registration</a>
         <a href="{{ route('students.index') }}">Students</a>
         @auth
             <a href="{{ route('results.index') }}">Results</a>
